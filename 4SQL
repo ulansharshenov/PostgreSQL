@@ -1,1 +1,279 @@
+CREATE TABLE university(
+    id SERIAL PRIMARY KEY,
+    u_name VARCHAR(50),
+    rating FLOAT,
+    u_id INT REFERENCES university
+);
 
+CREATE TABLE student(
+    id SERIAL PRIMARY KEY,
+    university VARCHAR(50),
+    name VARCHAR(50),
+    gender varchar(50),
+    email VARCHAR(50)
+);
+
+INSERT INTO university(u_name, rating)
+VALUES ('ALATOO', 4.8),
+       ('AUCA', 4.9),
+       ('UCA', 5.0);
+
+INSERT INTO student(university, name, gender, email)
+VALUES ('Alatoo', 'Urmat', 'male', 'urmat@edu.kg'),
+       ('AUCA', 'Maks', 'male', 'maks@edu.kg'),
+       ('UCA', 'Adinay', 'female', 'adinay@edu.kg');
+
+DROP TABLE student;
+DROP TABLE university;
+UPDATE university SET u_id = 1 WHERE u_name = 'ALATOO';
+UPDATE university SET u_id = 2 WHERE rating = 4.9;
+UPDATE university SET u_id = 3 WHERE id = 3;
+ALTER TABLE student RENAME TO students;
+SELECT * FROM university;
+
+CREATE TABLE market(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    m_id INT REFERENCES seller
+);
+
+CREATE TABLE seller(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    salary INTEGER NOT NULL
+);
+
+INSERT INTO market(name, m_id)
+VALUES ('Globus', 1),
+       ('Frunze', 2),
+       ('Dostuk', 3);
+
+INSERT INTO seller(name, salary)
+VALUES ('Asel', 20000),
+       ('Azamat', 30000),
+       ('Jibek', 50000);
+
+SELECT * FROM seller;
+
+CREATE TABLE coach(
+    id SERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    gender VARCHAR(50) NOT NULL,
+    phone INT,
+    salary INT NOT NULL
+);
+
+INSERT INTO coach(name, gender, phone, salary)
+VALUES('Johny', 'male', 500920006, 200000),
+      ('Max', 'male', 555939393, 160000),
+      ('Angela', 'female', 700545464, 220000);
+
+UPDATE coach SET name = 'Sam' WHERE id = 2;
+DELETE FROM coach WHERE name = 'Sam';
+SELECT * FROM coach;
+SELECT phone, salary FROM coach WHERE name = 'Johny';
+ALTER TABLE coach RENAME COLUMN name TO trainer;
+
+
+CREATE TABLE users(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    age INT NOT NULL
+);
+
+INSERT INTO users(name, age)
+VALUES ('Henry', 25),
+       ('Harry', 29),
+       ('Jack', 45);
+
+SELECT name FROM users WHERE id = 2;
+SELECT name from users;
+SELECT id from users where name = 'Harry';
+
+
+CREATE TABLE countries(
+    id SERIAL PRIMARY KEY UNIQUE NOT NULL ,
+    name VARCHAR(100) UNIQUE NOT NULL ,
+    capital VARCHAR(100) NOT NULL ,
+    population INT NOT NULL
+);
+
+INSERT INTO countries(name, capital, population)
+VALUES ('Kyrgyzstan', 'Bishkek', 7000000),
+       ('India', 'New Delhi', 1380000000),
+       ('Turkey', 'Ankara', 85000000);
+
+CREATE TABLE books(
+    id SERIAL PRIMARY KEY UNIQUE NOT NULL ,
+    book_name VARCHAR(100) NOT NULL ,
+    author VARCHAR(100) NOT NULL
+);
+
+INSERT INTO books(book_name, author)
+VALUES ('Harry Potter', 'J. K. Rowling'),
+       ('Lord of the Rings', 'J. R. R. Tolkien');
+
+DROP TABLE books;
+
+CREATE TABLE mobile_phones(
+    id SERIAL PRIMARY KEY UNIQUE NOT NULL ,
+    brand VARCHAR(100) NOT NULL ,
+    price INT NOT NULL
+);
+
+INSERT INTO mobile_phones(brand, price)
+VALUES ('Iphone 13', 100000),
+       ('Mi 14',16000),
+       ('Samsung Galaxy S 6', 38000);
+
+CREATE TABLE employee(
+    id SERIAL PRIMARY KEY UNIQUE NOT NULL,
+    name VARCHAR(250)NOT NULL,
+    salary INT,
+    phone INT
+);
+
+INSERT INTO employee(name, salary, phone)
+VALUES ('Sezim', 30000, 555879654),
+       ('Janara', 40000, 700906185),
+       ('Jobek', 50000, 222563355);
+
+DROP TABLE employee;
+
+CREATE TABLE sports(
+    id SERIAL PRIMARY KEY UNIQUE NOT NULL ,
+    name VARCHAR(50) UNIQUE NOT NULL ,
+    type VARCHAR(50)
+);
+
+INSERT INTO sports(name, type)
+VALUES ('Football', 'outdoor'),
+       ('Wrestling', 'indoor'),
+       ('Swimming', 'pool');
+
+DROP TABLE sports;
+
+CREATE TABLE truck(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    year INT
+);
+
+INSERT INTO truck(name, year)
+VALUES ('VOLVO', 2010),
+       ('MERCEDEZ', 2020),
+       ('KAMAZ', 2022);
+
+DROP TABLE truck;
+
+CREATE TABLE driver(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    age INTEGER,
+    car VARCHAR(50)
+);
+
+INSERT INTO driver(name, age, car)
+VALUES ('Azat', 25, 'Volvo'),
+       ('Nurak', 30, 'Honda'),
+       ('Mari', 30, 'Toyota');
+
+CREATE TABLE peaksoft(
+    id SERIAL PRIMARY KEY,
+    employee VARCHAR(50),
+    p_id INT REFERENCES developer
+);
+
+CREATE TABLE developer(
+    id SERIAL PRIMARY KEY,
+    position VARCHAR(50),
+    rating FLOAT,
+    salary INT
+);
+
+INSERT INTO peaksoft(employee, p_id)
+VALUES ('Maksat', 1),
+       ('Janybek', 2),
+       ('Nazira', 3);
+
+INSERT INTO developer(position, rating, salary)
+VALUES ('Java developer', 5.0, 150000),
+       ('Js developer', 4.8, 120000),
+       ('Project manager', 4.9, 100000);
+
+CREATE TABLE library(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    l_id INT REFERENCES visitor
+);
+
+CREATE TABLE visitor(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    age INT
+);
+
+INSERT INTO library(name, l_id)
+VALUES ('Bayalinov', 1);
+
+INSERT INTO visitor(name, age)
+VALUES ('Max', 34);
+
+DROP TABLE library;
+DROP TABLE visitor;
+
+CREATE TABLE supara(
+    id SERIAL PRIMARY KEY,
+    room INT NOT NULL,
+    price INT NOT NULL,
+    s_id INT REFERENCES guest
+);
+
+CREATE TABLE guest(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    contact VARCHAR(50)
+);
+
+INSERT INTO supara(room, price, s_id)
+VALUES (301, 10000, 1),
+       (302, 12000, 2),
+       (303, 14000, 3);
+
+INSERT INTO guest(name, contact)
+VALUES ('Adilet', 777445566),
+       ('Joodar', 777223344),
+       ('Ulan', 777888888);
+
+DROP TABLE supara;
+DROP TABLE guest;
+
+CREATE TABLE taigan(
+    id SERIAL PRIMARY KEY,
+    items VARCHAR(50),
+    t_id INT REFERENCES countries
+);
+
+CREATE TABLE courier(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    gender VARCHAR(50),
+    age VARCHAR(50),
+    salary INT
+);
+
+INSERT INTO taigan(items, t_id)
+VALUES ('clothes', 1),
+       ('shoes', 2),
+       ('vitamins', 3);
+
+INSERT INTO courier(name, gender, age, salary)
+VALUES ('John', 'male', 23, 15000),
+       ('Linda', 'female', 24, 16000),
+       ('Ted', 'male', 18, 18000);
+
+DROP TABLE courier;
+DROP TABLE taigan;
+
+SELECT * FROM courier;
+SELECT * FROM taigan;
